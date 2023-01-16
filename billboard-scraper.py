@@ -1,3 +1,5 @@
+import os.path
+
 from bs4 import BeautifulSoup
 import requests, openpyxl
 
@@ -21,9 +23,9 @@ try:
 
         sheet.append([songRank,songTitle,songArtist])
 
+    excel.save('Billboard Hot 100 (2009).xlsx')  # change year to whatever year
+
 except Exception as e:
     print(e)
 
 print('Success')
-
-excel.save('Billboard Hot 100 (2009).xlsx') #change year to whatever year
