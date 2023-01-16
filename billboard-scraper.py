@@ -3,11 +3,11 @@ import requests, openpyxl
 
 excel = openpyxl.Workbook()
 sheet = excel.active
-sheet.title = 'Billboard Hot 100 2022'#change year to whatever year
+sheet.title = 'Billboard Hot 100 2009'#change year to whatever year
 sheet.append(['Rank', 'Title','Artist'])
 
 try:
-    source = requests.get('https://www.billboard.com/charts/year-end/2022/hot-100-songs/') #just change the link for each year
+    source = requests.get('https://www.billboard.com/charts/year-end/2009/hot-100-songs/') #just change the link for each year
     source.raise_for_status()
 
     soup = BeautifulSoup(source.text, 'html.parser')
@@ -26,4 +26,4 @@ except Exception as e:
 
 print('Success')
 
-excel.save('Billboard Hot 100 (2022).xlsx') #change year to whatever year
+excel.save('Billboard Hot 100 (2009).xlsx') #change year to whatever year
