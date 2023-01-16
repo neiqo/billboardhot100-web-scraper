@@ -3,7 +3,7 @@ import requests, openpyxl
 
 excel = openpyxl.Workbook()
 sheet = excel.active
-sheet.title = 'Billboard Hot 100 2022'
+sheet.title = 'Billboard Hot 100 2022'#change year to whatever year
 sheet.append(['Rank', 'Title','Artist'])
 
 try:
@@ -26,4 +26,4 @@ except Exception as e:
 
 print('Success')
 
-excel.save('Billboard Hot 100 (2022).xlsx')
+excel.save('Billboard Hot 100 (2022).xlsx') #change year to whatever year
