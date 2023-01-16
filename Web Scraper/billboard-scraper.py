@@ -1,13 +1,13 @@
 from bs4 import BeautifulSoup
-import requests, openpyxl, getpass
+import requests, openpyxl, os
 
 excel = openpyxl.Workbook()
 sheet = excel.active
-sheet.title = 'Billboard Hot 100 2009'#change year to whatever year
+sheet.title = 'Billboard Hot 100 2008'#change year to whatever year
 sheet.append(['Rank', 'Title','Artist'])
 
 try:
-    source = requests.get('https://www.billboard.com/charts/year-end/2009/hot-100-songs/') #just change the link for each year
+    source = requests.get('https://www.billboard.com/charts/year-end/2008/hot-100-songs/') #just change the link for each year
     source.raise_for_status()
 
     soup = BeautifulSoup(source.text, 'html.parser')
@@ -21,9 +21,14 @@ try:
 
         sheet.append([songRank,songTitle,songArtist])
 
-    excel.save('Billboard Hot 100 (2009).xlsx')  # change year to whatever year
 
 
-    print('Success!\nFiles have been printed in the same folder as the web scraper.')
+    os.mkdir('Excel Files')
+    os.chdir("Excel Files")
+
+    excel.save('Billboard Hot 100 (2008).xlsx')
+
+
+    print('Success!\nFiles have been extracted to', os.getcwd())
 except Exception as e:
     print(e)
