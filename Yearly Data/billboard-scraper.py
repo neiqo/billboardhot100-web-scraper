@@ -1,7 +1,5 @@
-import os.path
-
 from bs4 import BeautifulSoup
-import requests, openpyxl
+import requests, openpyxl, getpass
 
 excel = openpyxl.Workbook()
 sheet = excel.active
@@ -25,7 +23,7 @@ try:
 
     excel.save('Billboard Hot 100 (2009).xlsx')  # change year to whatever year
 
+
+    print('Success!\nFiles have been printed in the same folder as the web scraper.')
 except Exception as e:
     print(e)
-
-print('Success')
