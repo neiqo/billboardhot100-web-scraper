@@ -1,36 +1,49 @@
 from bs4 import BeautifulSoup
 import requests, openpyxl, os
 
-excel = openpyxl.Workbook()
-sheet = excel.active
-sheet.title = 'Billboard Hot 100 2008'#change year to whatever year
-sheet.append(['Rank', 'Title','Artist'])
+originalcwd = os.getcwd()
+if not os.path.exists(originalcwd + "/Excel Files/"):
+    os.mkdir("Excel Files")
+    os.chdir("Excel Files")
+    print('Folder Made')
+else:
+    os.chdir("Excel Files")
+    print('Folder already created\n'
+          '---------------------------------------------------------')
 
 try:
-    source = requests.get('https://www.billboard.com/charts/year-end/2008/hot-100-songs/') #just change the link for each year
-    source.raise_for_status()
+    year = 2006
 
-    soup = BeautifulSoup(source.text, 'html.parser')
-    content = soup.find_all('div', class_='o-chart-results-list-row-container')
+    for x in range(20):
 
+        url = 'https://www.billboard.com/charts/year-end/'+str(year)+'/hot-100-songs/'
+        source = requests.get(url)
 
-    for songs in content:
-        songRank = songs.find('span').text.strip()
-        songTitle = songs.find('h3').text.strip()
-        songArtist = songs.find('h3').find_next('span').text.strip()
+        if year == 2023:
+            print('Program Finished')
+            break
+        else:
+            soup = BeautifulSoup(source.text, 'html.parser')
+            content = soup.find_all('div', class_='o-chart-results-list-row-container')
 
-        sheet.append([songRank,songTitle,songArtist])
+            excel = openpyxl.Workbook()
+            sheet = excel.active
+            sheet.title = 'Billboard Hot 100'+str(year)  # change year to whatever year
+            sheet.append(['Rank', 'Title', 'Artist'])
 
+            for songs in content:
+                songRank = songs.find('span').text.strip()
+                songTitle = songs.find('h3').text.strip()
+                songArtist = songs.find('h3').find_next('span').text.strip()
 
-    if not os.path.exists(os.getcwd() + "/Excel Files/"):
-        os.mkdir('Excel Files')
-        os.chdir("Excel Files")
-        excel.save('Billboard Hot 100 (2009).xlsx')
-    else:
-        os.chdir("Excel Files")
-        excel.save('Billboard Hot 100 (2009).xlsx')
+                sheet.append([songRank, songTitle, songArtist])
 
+            excel_file = 'Billboard Hot 100 ('+str(year)+').xlsx'
+            excel.save(excel_file)
+            print('Excel File with data from year '+str(year)+' made\n'
+                  'File is in '+os.getcwd()+'\n'
+                  '---------------------------------------------------------')
 
-    print('Success!\nFiles have been extracted to', os.getcwd())
+            year += 1
 except Exception as e:
     print(e)
