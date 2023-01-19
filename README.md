@@ -1,5 +1,5 @@
 
-# Billboard Year-end Hot 100 Songs Scraper
+# Billboard Year-end Hot 100 Songs Web Scraper
 
 This project is to scrape data from Billboard's website and analyze the hot 100 songs from 2010-2022
 
