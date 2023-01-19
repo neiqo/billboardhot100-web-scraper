@@ -22,11 +22,13 @@ try:
         sheet.append([songRank,songTitle,songArtist])
 
 
-
-    os.mkdir('Excel Files')
-    os.chdir("Excel Files")
-
-    excel.save('Billboard Hot 100 (2008).xlsx')
+    if not os.path.exists(os.getcwd() + "/Excel Files/"):
+        os.mkdir('Excel Files')
+        os.chdir("Excel Files")
+        excel.save('Billboard Hot 100 (2009).xlsx')
+    else:
+        os.chdir("Excel Files")
+        excel.save('Billboard Hot 100 (2009).xlsx')
 
 
     print('Success!\nFiles have been extracted to', os.getcwd())
